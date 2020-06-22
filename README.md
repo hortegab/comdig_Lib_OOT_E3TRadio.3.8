@@ -73,7 +73,7 @@ $ sudo make install
 $ sudo ldconfig
 
 # CORRECCION DE PATH
-- La instalación con Python 3.8.2 tiene por ahora un bug a corregir. Al parecer el problema es por usar Ubuntu 20.4 con Python 3.8, pues al parecer GNURadio 3.1 está siendo más frecuentemente usado sobre Ubuntu 18.4. El problema consiste en que:
+- La instalación con Python 3.8.2 tiene por ahora un bug a corregir. Al parecer el problema es por usar Python 3.8.2, pues al parecer GNURadio 3.1 está siendo más frecuentemente usado en versiones anteriores. El problema consiste en que:
 
   -- Los paquetes aparecen instalados en la carpeta:  /usr/local/lib/python3
   -- pero necesitamos que aparezca en /usr/local/lib/python3.8
