@@ -21,7 +21,8 @@ $ sudo apt-get install xterm cmake make
 ## Instalación de Liberias de python3
 
 $ sudo apt install python3-pip python3-click-plugins
-$ pip3 install numpy scipy mako sphinx lxml pyqt5 yaml click zmq markdown cython matplotlib
+$ pip3 install numpy scipy mako sphinx lxml pyqt5 click zmq markdown cython matplotlib
+$ pip3 install pyyaml
 $ pip3 install git+https://github.com/pyqtgraph/pyqtgraph@master
 
 ## Instalacion de la libreria de python para el diagrama de ojo
