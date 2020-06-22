@@ -2,4 +2,4 @@ build/*.*
 top_block.py
 wform.py
 *.pyc
-python/Obsoleta/
+Obsoleta/
