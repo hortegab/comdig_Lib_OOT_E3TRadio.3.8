@@ -26,7 +26,8 @@ sudo apt install gnuradio
 
 ## Instalación de aplicaciones
 $ sudo apt install --fix-broken
-$ sudo apt-get install xterm cmake make
+$ sudo apt install xterm
+$ sudo apt-get install cmake make
 
 ## Instalación de Liberias de python3
 
@@ -50,10 +51,21 @@ Debe comprobar que mínimamente esté instalado:
 - numpy
 - scipy
 
+## Actualice el sistema
+$ sudo apt-get update
+$ sudo apt-get upgrade
+
 # LA INSTALACION DEL OOT E3TRADIO
+
 - En la raiz de carpeta bajada del github crea la subcarpeta "buid"
 - Entra a la subcarpeta "buid" y allí abre una terminal de comandos de ubunto
 - Envía los siguientes comandos:
+
+## Actualice el sistema
+$ sudo apt-get update
+$ sudo apt-get upgrade
+
+## Instale el OOT E3T Radio
 
 $ cmake ..
 $ make
