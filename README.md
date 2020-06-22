@@ -49,6 +49,13 @@ $ make
 $ sudo make install
 $ sudo ldconfig
 
+# CORRECCION DE PATH
+- La instalación con Python 3.8.2 tiene por ahora un bug a corregir:
+  -- Los paquetes aparecen instalados en la carpeta:  /usr/local/lib/python3
+  -- pero necesitamos que aparezca en /usr/local/lib/python3.8
+- Eso se soluciona con el comando:
+sudo cp -r /usr/local/lib/python3/dist-packages/E3TRadio /usr/local/lib/python3.8/dist-packages/
+
 # PRUEBAS
 Una buena prueba de instalación es llamar, con GNU Radio 3.8.1 el flujograma "Ejemplo diagrama de ojo.grc" que aparece en la carpeta "examples"
 En caso de problemas, puede contactar a: hortegab@e3t.uis.edu.co
