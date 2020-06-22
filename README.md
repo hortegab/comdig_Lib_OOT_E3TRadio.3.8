@@ -3,16 +3,26 @@
 Este es el principal OOT para GNU Radio creado en la Escuela de Ingenierías Eléctrica Electrónica y Telecomunicaciones (E3T) de la UIS con el propósito de la formación en las asignaturas de comunicaciones. Esta versión está adaptada y probad con GNU Radio version 3.8.1 con Python 3.8.2. Como es bien sabido, un OOT es una especie de libreria, pero no de Python sino de GNURadio, por eso tiene una forma especial de instalación.
 
 # PRERREQUISITOS (DEPENDENCIAS)
-Aquí se describe lo que hay que instalar previamente. Lo que se instala solo la primera vez. Todo lo siguiente se instala en forma de comandos por terminal ubuntu.
+Aquí se describe lo que hay que instalar previamente. Lo que se instala solo la primera vez. Usted no debe hacer esto si ya ha instalado antes este paquere y ahora solo quiere actualizarlo.
 
-Se supone que usted ya tiene instalado git si ha podido bajar este paquete. Pero si no es así, este es el comando para hacerlo:
+Todo lo siguiente se instala en forma de comandos por terminal ubuntu.
 
-$ sudo apt install git
-
-## Actualización del sistema
+## Lo que siempre se hace - la Actualización del sistema
+Siempre que vaya a hacer cualquier cosa sobre Ubuntu debes actualizar tu sistema, más aún cuando se trata de instalaciones de paquetes. Estos son los cmandos para actualizar el sistema:
 
 $ sudo apt-get update
 $ sudo apt-get upgrade
+
+## Lo que se supone que usted ya tiene
+Se supone que usted ya tiene instalado:
+
+- git ya que seguramente lo usó para bajar este paquete. Si acaso no tiene instalado git, este es el comando para hacerlo:
+
+$ sudo apt install git
+
+- gnuradio version 3.8.1. Si no lo tiene, es tan simple como enviar el comando:
+
+sudo apt install gnuradio
 
 ## Instalación de aplicaciones
 $ sudo apt install --fix-broken
