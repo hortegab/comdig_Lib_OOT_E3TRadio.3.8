@@ -1,4 +1,4 @@
-build/*.*
+build/
 top_block.py
 wform.py
 *.pyc
