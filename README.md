@@ -57,9 +57,9 @@ $ sudo apt-get upgrade
 
 # LA INSTALACION DEL OOT E3TRADIO
 
-- En la raiz de carpeta bajada del github crea la subcarpeta "buid"
-- Entra a la subcarpeta "buid" y allí abre una terminal de comandos de ubunto
-- Envía los siguientes comandos:
+- Entra a la carpeta principal del paquete bajado del github y crea allí la subcarpeta "build"
+- Entra a esa subcarpeta "build" y allí abre una terminal de comandos de ubunto
+- Envía por el terminal los siguientes comandos:
 
 ## Actualice el sistema
 $ sudo apt-get update
