@@ -26,6 +26,7 @@ sudo apt install gnuradio
 
 ## Instalación de aplicaciones
 $ sudo apt install --fix-broken
+
 $ sudo apt install xterm
 $ sudo apt-get install cmake make
 
