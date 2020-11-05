@@ -57,7 +57,3 @@ class diezma_ff(gr.decim_block):
 # La siguiente funcion sirve para cambiar en caliente el valor M
     def set_ka(self, M):
         self.M=M
-
-
-
-
