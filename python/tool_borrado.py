@@ -22,7 +22,7 @@
 import numpy
 from gnuradio import gr
 
-class decisor_ff(gr.sync_block):
+class decisor_ff_old(gr.sync_block):
     """
     Entrega como salida 1 si la entrada supera el umbral. 0 si no lo supera. Tanto la entrada como la salida es un valor de tipo float
     """

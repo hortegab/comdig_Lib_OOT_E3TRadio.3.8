@@ -1,5 +1,5 @@
 
-id: E3TRadio_decisor_ff
+id: E3TRadio_decisor_ff_old
 label: borrar_mult
 category: borrar
 
@@ -18,6 +18,6 @@ outputs:
 
 templates:
     imports: import E3TRadio
-    make: E3TRadio.decisor_ff(${Umbral})
+    make: E3TRadio.decisor_ff_old(${Umbral})
 
 file_format: 1
