@@ -24,27 +24,18 @@ from gnuradio import gr
 
 class decisor_fb(gr.sync_block):
     """
-    Si la muestra entrante supera el umbral entrega 1, sino entrega 0. La entrada es tipo float, la salida tipo byte
+    Si la muestra entrante supera el Umbral=0 entrega 1, sino entrega 0. La entrada es tipo float, la salida tipo byte. Nota: no importa que valor le des a la variable Umbral, se considerará que Umbral = 0
     """
     def __init__(self, Umbral):
         gr.sync_block.__init__(self,
             name="decisor_fb",
             in_sig=[numpy.float32],
             out_sig=[numpy.bool])
-        self.Umbral=Umbral
+#        self.Umbral=Umbral
 
     def work(self, input_items, output_items):
         in0 = input_items[0]
         out = output_items[0]
-        # <+signal processing here+>
-
-        a=numpy.zeros(len(in0), dtype=bool) 
-        for i in range(0,len(in0)):
-            if in0[i]>self.Umbral:
-                a[i]=True
-            else:
-                a[i]=False
-
-        out[:] = a
+        out[:]=numpy.ceil(numpy.clip(in0,0,1)).astype('bool')
         return len(output_items[0])
 

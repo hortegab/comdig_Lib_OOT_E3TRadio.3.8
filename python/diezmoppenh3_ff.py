@@ -27,7 +27,7 @@ class diezmoppenh3_ff(gr.sync_block):
     Realiza un diezmado al estilo Oppenheim.
     El codigo usado se llama diezmoppenh3_ff.py 
     N: es la distancia entre las muestras que no resultan diezmadas. De modo que son diezmadas N-1 muestras
-    M: es la muestra donde inicia el diezmado. Puede ser visto como un retrazo. Si es mayor o igual a N-1 el bloque falla
+    M: es la muestra donde inicia el diezmado. Puede ser visto como un retrazo. Si es mayor o igual a N-1 el bloque falla. Nota: Una revision en 2020 determino que el codigo de este bloque no esta optimizado a operaciones vectoriales.
 
     """
     def __init__(self, N, M):

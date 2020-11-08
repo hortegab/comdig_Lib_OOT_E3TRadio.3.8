@@ -9,6 +9,7 @@ from gnuradio import gr
 class sumador(gr.sync_block):
     """
     Este es un sumador muy sencillo de señales entrantes. Lo he creado básicamente, para aprender a hacerlo
+    CORREGIR: podria llamarse sumador_ff
     """
     def __init__(self):
         gr.sync_block.__init__(self,name="sumador", in_sig=[numpy.float32, numpy.float32], out_sig=[numpy.float32])

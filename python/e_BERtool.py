@@ -44,6 +44,8 @@ NOTA IMPORTANTE:
    ** Convertir Es/No a Eb/No es posible pero como parte de un flujograma donde se conozca el numero de bits por simbolo (Bps), teniendo en cuenta que, en términos lineales, Eb=Es/Bps
    ** La manera en que esta hecho el bloque e_canal_BER hace que si el numero de muestras por simbolo es mayor a 1 (Sps>1), la senal Es/No sale con Sps valores por simbolo. En ese caso se requeriria aplicar algun tipo de mejora ya que nuestro bloque supone que solo hay una muestra Es/No (o Es/No) por cada muestra de senal en in1 e in2.
 * las senales in1 y in2 pueden ser bits o simbolos. En el segundo caso es el que hemos usado mas, ya que las senales in1 e in2 son de tipo M-PAM. Por eso, lo que hemos estado calculando es Curva de SER. Se puede pasar facilmente a Curvas de BER, si a los bits se les aplica de-M-PAM.
+
+PARA CORREGIR: Este bloque no deberia llamarme e_BERtool, sino BERtool_if
  
 """
 

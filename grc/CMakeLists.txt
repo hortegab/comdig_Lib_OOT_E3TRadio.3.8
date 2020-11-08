@@ -54,5 +54,6 @@ install(FILES
 	E3TRadio_diezmoppenh3_ff.block.yml
 	E3TRadio_time_averager_jesus.block.yml
 	E3TRadio_v_delay.block.yml
-	E3TRadio_vec_diagrama_ojo2_f.block.yml DESTINATION share/gnuradio/grc/blocks
+	E3TRadio_vec_diagrama_ojo2_f.block.yml
+    E3TRadio_bipolar_decisor_ff.block.yml DESTINATION share/gnuradio/grc/blocks
 )

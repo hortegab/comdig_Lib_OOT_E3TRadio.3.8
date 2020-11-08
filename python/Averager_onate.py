@@ -27,7 +27,9 @@ from gnuradio import gr
 
 class Averager_onate(gr.sync_block):
     """
-    Va promediando un vector de N muestras. El resultado es un nuevo vector que se va actualizando a medida que se renueva el vector en la entrada de modo que el vector de salida es el promedio de todos los vectores que van pasando por la entrada. N es la longitud del vector de entrada y por consiguiente tambien el de la salida
+    Va promediando un vector de N muestras. El resultado es un nuevo vector que se va actualizando a medida que se renueva el vector en la entrada de modo que el vector de salida es el promedio de todos los vectores que van pasando por la entrada. N es la longitud del vector de entrada y por consiguiente tambien el de la salida.
+
+PARA CORREGIR: El codigo de este bloque no esta optimizado a operaciones vectoriales.Quiza un ejemplo a seguir sea el bloque averager, el power_meter y el vector_average_hob.
     """
     def __init__(self, N):
         self.N = N

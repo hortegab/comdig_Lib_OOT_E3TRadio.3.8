@@ -30,6 +30,8 @@ exponencial
 triangular
 binomial
 potencia
+
+PARA CORREGIR:Deberia llamarse FFT_Jesus_cc; Es la version de Jesus Munoz, con operaciones vectorizadas, pero no hemos verificado que sea la version rapida y que de pronto no sea la simple formula de sumas de la DEF. La clave de la verdad puede estar en este articulo: https://towardsdatascience.com/fast-fourier-transform-937926e591cb
     """
     def __init__(self, N, W, window):
         self.N = N

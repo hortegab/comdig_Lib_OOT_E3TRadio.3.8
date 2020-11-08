@@ -91,9 +91,8 @@ GR_PYTHON_INSTALL(
 	vec_diagrama_ojo_f.py
 	qa_e_canal_BER.py
 	vec_diagrama_ojo2_f.py
-	ifft_jesus.py 
-
-    DESTINATION ${GR_PYTHON_DIR}/E3TRadio
+	ifft_jesus.py
+    bipolar_decisor_ff.py DESTINATION ${GR_PYTHON_DIR}/E3TRadio
 )
 
 ########################################################################

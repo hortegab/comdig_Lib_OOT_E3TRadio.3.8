@@ -24,7 +24,7 @@ from gnuradio import gr
 
 class decisor_fi(gr.sync_block):
     """
-    Entrega un uno si el valor entrante supera el Umbral o un cero si no lo supera. La entrada es tipo float, la salida tipo entero. Este bloque no esta bien probado, puede tener errores
+    Entrega un uno si el valor entrante supera el Umbral=0 o un cero si no lo supera. La entrada es tipo float, la salida tipo entero. Este bloque no esta bien probado, puede tener errores. Nota: no importa que valor le des a la variable Umbral, se considerará que Umbral = 0
     """
     def __init__(self, Umbral):
         gr.sync_block.__init__(self,
@@ -33,7 +33,7 @@ class decisor_fi(gr.sync_block):
             out_sig=[numpy.int])
 #            out_sig=[numpy.bool_])
 
-        self.Umbral=Umbral
+#        self.Umbral=Umbral
 
 
     def work(self, input_items, output_items):
@@ -41,15 +41,14 @@ class decisor_fi(gr.sync_block):
         out = output_items[0]
 
         # <+signal processing here+>
-        a=numpy.zeros(len(in0),dtype=numpy.uint8)
+#        a=numpy.zeros(len(in0),dtype=numpy.uint8)
 #        a=numpy.zeros(len(in0),dtype=numpy.bool_)
-        for i in range(0,len(in0)):
-            if in0[i]>self.Umbral:
-                a[i]=numpy.int(1)
-            else:
-                a[i]=numpy.int(0)
-
-        out[:] = a
-
+#        for i in range(0,len(in0)):
+#            if in0[i]>self.Umbral:
+#                a[i]=numpy.int(1)
+#            else:
+#                a[i]=numpy.int(0)
+#        out[:] = a
+        out[:]=numpy.ceil(numpy.clip(in0,0,1)).astype('int')
         return len(output_items[0])
 

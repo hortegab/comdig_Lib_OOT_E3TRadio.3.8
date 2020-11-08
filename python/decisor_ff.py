@@ -24,20 +24,20 @@ from gnuradio import gr
 
 class decisor_ff(gr.sync_block):
     """
-    Hecho por Homero Ortega Boada, UIS 2017. Entrega como salida 1 si la entrada supera el umbral, pero 0 si no lo supera. Tanto la entrada como la salida es un valor de tipo float
+    Hecho por Homero Ortega Boada, UIS 2017. Entrega como salida 1 si la entrada supera el umbral=0, pero 0 si no lo supera. Tanto la entrada como la salida es un valor de tipo float. Nota: no importa que valor le des a la variable Umbral, se considerará que Umbral = 0
     """
     def __init__(self, Umbral=0):
         gr.sync_block.__init__(self,
             name="decisor_ff",
             in_sig=[numpy.float32],
             out_sig=[numpy.float32])
-        self.Umbral=Umbral
+#        self.Umbral=Umbral
 
 
     def work(self, input_items, output_items):
         in0 = input_items[0]
         out = output_items[0]
-        # Signal processing
-        out[:] = [float(v>self.Umbral) for v in in0]
+#        out[:] = [float(v>self.Umbral) for v in in0]
+        out[:]=numpy.ceil(numpy.clip(in0,0.,1.))
         return len(output_items[0])
 

@@ -24,7 +24,9 @@ from gnuradio import gr
 
 class Zero_Order_Hold(gr.interp_block):
     """
-    Es el retenedor de orden cero. Lo que hace es retener cada muestra de la senal durante k muestras. Para el caso de las senales binarias puede ser visto como un sobremuestreador. Hecho por Homero Ortega, Universidad Industrial de Santander, Colombia
+    Es el retenedor de orden cero. Lo que hace es retener cada muestra de la senal durante k muestras. Para el caso de las senales binarias puede ser visto como un sobremuestreador. Hecho por Homero Ortega, Universidad Industrial de Santander, Colombia. 
+    
+PARA CORREGIR: El codigo de este bloque no esta optimizado a operaciones vectoriales.
     """
     def __init__(self, k):
 

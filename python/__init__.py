@@ -80,3 +80,4 @@ from .mean_meter import mean_meter
 from .power_meter import power_meter
 from .vec_diagrama_ojo2_f import vec_diagrama_ojo2_f
 from .vec_diagrama_ojo_f import vec_diagrama_ojo_f
+from .bipolar_decisor_ff import bipolar_decisor_ff

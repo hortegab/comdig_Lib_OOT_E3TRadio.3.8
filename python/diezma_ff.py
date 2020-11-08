@@ -25,7 +25,9 @@ from gnuradio import gr
 class diezma_ff(gr.decim_block):
     """
     Realiza un diezmado del mundo real. N es la distancia entre las muestras a diezmar, M es el punto de inicio.
-    El codigo esta en diezma_ff.py. Escrito por Homero Ortega. Universidad Industrial de Santander. Colombia
+    El codigo esta en diezma_ff.py. Escrito por Homero Ortega. Universidad Industrial de Santander. Colombia. 
+
+PARA CORREGIR: Una revision en 2020 determino qu el codigo de este bloque no esta optimizado a operaciones vectoriales. Un buen ejemplo de optimizacion es el bloque:diezmador_cc
     """
     def __init__(self, N,M):
         self.N=N

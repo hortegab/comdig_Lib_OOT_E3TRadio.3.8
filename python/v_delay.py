@@ -25,6 +25,8 @@ from gnuradio import gr
 class v_delay(gr.sync_block):
     """
     toma un vector de tamano N y devuelve un vector igual pero con un corrimiento de M muestras. Usa una memoria interna para que no se pierdan las muestras que se salgan del vector por el corrimiento.
+    
+    CORREGIR: deberia llamarse v_delay_ff
     """
     def __init__(self, N, M):
         self.N=N  # Es el tamano del vector de entrada y a la vez el max retardo posible

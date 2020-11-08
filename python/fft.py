@@ -19,12 +19,15 @@
 # Boston, MA 02110-1301, USA.
 # 
 
+
 import numpy
 from gnuradio import gr
 
 class fft(gr.sync_block):
     """
-    Perform fft
+    Perform fft.
+    
+    PARA CORREGIR:Deberia llamarse FFT_cc; Parece ser la version de Jesus Munoz, con operaciones vectorizadas, pero no hemos verificado que sea la version rapida y que de pronto no sea la simple formula de sumas de la DEF. La clave de la verdad puede estar en este articulo: https://towardsdatascience.com/fast-fourier-transform-937926e591cb
     """
     def __init__(self, N, W, window):
         self.N = N

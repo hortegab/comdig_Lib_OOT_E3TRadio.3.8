@@ -25,6 +25,8 @@ from gnuradio import gr
 class zero_order_hold2_cc(gr.interp_block):
     """
     Es un retenedor de orden cero. De modo que cada muestra que recibe la repite k veces, donde k es el tiempo discreto de retencion. Hecho por Homero Ortega, Universidad Industrial de Santander, Colombia
+    
+    CORREGIR: Parece que las operaciones pueden ser mejor vectorizadas
     """
     def __init__(self, k):
         self.k=k

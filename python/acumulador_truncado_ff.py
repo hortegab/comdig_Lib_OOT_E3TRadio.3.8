@@ -24,7 +24,9 @@ import math
 from gnuradio import gr
 
 class acumulador_truncado_ff(gr.sync_block):
-    """ Es un acumulador que se resetea cada N muestras. El reseteo no implica retornar a cero sino a la amplitud de la primera muestra. Arranca en la muestra M y termina en la M+N-1. Este bloque es hecho en la E3T de la UIS
+    """ Es un acumulador que se resetea cada N muestras. El reseteo no implica retornar a cero sino a la amplitud de la primera muestra. Arranca en la muestra M y termina en la M+N-1. Este bloque es hecho en la E3T de la UIS. 
+    
+PARA CORREGIR: Una revision en 2020 determino que el codigo de este bloque no esta optimizado a operaciones vectoriales. Quiza buenos ejemplos sean el bloque averager, el power_meter y el vector_average_hob.
     """
     def __init__(self, N, M):
 
