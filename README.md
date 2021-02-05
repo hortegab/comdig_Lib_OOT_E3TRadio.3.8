@@ -31,9 +31,10 @@ $ sudo apt install xterm
 $ sudo apt-get install cmake make
 
 ## Instalación de Liberias de python3
-
+$ sudo apt install python3-pip
 $ sudo apt install python3-pip python3-click-plugins
 $ pip3 install numpy scipy mako sphinx lxml pyqt5 click zmq markdown cython matplotlib
+$ pip3 install click zmq markdown cython matplotlib
 $ pip3 install pyyaml
 $ pip3 install git+https://github.com/pyqtgraph/pyqtgraph@master
 
@@ -51,10 +52,6 @@ Debe comprobar que mínimamente esté instalado:
 - Matplotlib
 - numpy
 - scipy
-
-## Actualice el sistema
-$ sudo apt-get update
-$ sudo apt-get upgrade
 
 # LA INSTALACION DEL OOT E3TRADIO
 
