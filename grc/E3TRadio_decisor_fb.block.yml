@@ -1,7 +1,7 @@
 
 id: E3TRadio_decisor_fb
 label: decisor_fb
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: Umbral

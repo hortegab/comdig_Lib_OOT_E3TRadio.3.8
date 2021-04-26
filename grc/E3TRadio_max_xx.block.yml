@@ -1,7 +1,7 @@
 
 id: E3TRadio_max_xx
 label: N vector max
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: tipo

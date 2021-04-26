@@ -1,6 +1,6 @@
 id: E3TRadio_acumulador_truncado_ff
 label: accum
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

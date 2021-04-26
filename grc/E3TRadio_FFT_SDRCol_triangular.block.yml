@@ -1,7 +1,7 @@
 
 id: E3TRadio_FFT_SDRCol_triangular
 label: FFT_SDRCol.Triangular
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

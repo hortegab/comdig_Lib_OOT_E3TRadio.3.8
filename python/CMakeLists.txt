@@ -92,7 +92,8 @@ GR_PYTHON_INSTALL(
 	qa_e_canal_BER.py
 	vec_diagrama_ojo2_f.py
 	ifft_jesus.py
-    bipolar_decisor_ff.py DESTINATION ${GR_PYTHON_DIR}/E3TRadio
+    bipolar_decisor_ff.py
+    v_autocorr_ff.py DESTINATION ${GR_PYTHON_DIR}/E3TRadio
 )
 
 ########################################################################

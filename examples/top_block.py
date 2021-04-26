@@ -6,7 +6,7 @@
 #
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# GNU Radio version: 3.8.1.0
+# GNU Radio version: 3.9.0.0
 
 from distutils.version import StrictVersion
 
@@ -20,28 +20,36 @@ if __name__ == '__main__':
         except:
             print("Warning: failed to XInitThreads()")
 
+import os
+import sys
+sys.path.append(os.environ.get('GRC_HIER_PATH', os.path.expanduser('~/.grc_gnuradio')))
+
 from PyQt5 import Qt
 from gnuradio import qtgui
-from gnuradio.filter import firdes
 import sip
-from gnuradio import analog
+from b_binary_bipolar_source1_f import b_binary_bipolar_source1_f  # grc-generated hier_block
 from gnuradio import blocks
-import numpy
+from gnuradio import fft
+from gnuradio.fft import window
 from gnuradio import filter
+from gnuradio.filter import firdes
 from gnuradio import gr
-import sys
 import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import E3TRadio
+import numpy
 import wform  # embedded python module
+
+
+
 from gnuradio import qtgui
 
 class top_block(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Top Block")
+        gr.top_block.__init__(self, "Top Block", catch_exceptions=True)
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Top Block")
         qtgui.util.check_set_qss()
@@ -74,180 +82,233 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.Sps = Sps = 8
-        self.Rb = Rb = 32000
-        self.samp_rate = samp_rate = Rb*Sps
-        self.rolloff4 = rolloff4 = 0.
-        self.rolloff3 = rolloff3 = 0.35
-        self.rolloff2 = rolloff2 = 0.5
-        self.rolloff1 = rolloff1 = 1.0
-        self.ntaps = ntaps = 128
+        self.samp_rate = samp_rate = 1953125
+        self.Sps = Sps = 32
+        self.run_stop = run_stop = True
+        self.h = h = wform.rect(Sps)
+        self.Rb = Rb = samp_rate/Sps
+        self.N = N = 16*Sps
+        self.Mean_reset = Mean_reset = 1
+        self.Ensayos = Ensayos = 1000000
 
         ##################################################
         # Blocks
         ##################################################
-        self.pestana = Qt.QTabWidget()
-        self.pestana_widget_0 = Qt.QWidget()
-        self.pestana_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.pestana_widget_0)
-        self.pestana_grid_layout_0 = Qt.QGridLayout()
-        self.pestana_layout_0.addLayout(self.pestana_grid_layout_0)
-        self.pestana.addTab(self.pestana_widget_0, 'Datos')
-        self.pestana_widget_1 = Qt.QWidget()
-        self.pestana_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.pestana_widget_1)
-        self.pestana_grid_layout_1 = Qt.QGridLayout()
-        self.pestana_layout_1.addLayout(self.pestana_grid_layout_1)
-        self.pestana.addTab(self.pestana_widget_1, 'Espectro')
-        self.pestana_widget_2 = Qt.QWidget()
-        self.pestana_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.pestana_widget_2)
-        self.pestana_grid_layout_2 = Qt.QGridLayout()
-        self.pestana_layout_2.addLayout(self.pestana_grid_layout_2)
-        self.pestana.addTab(self.pestana_widget_2, 'Diagrama de Ojo')
-        self.top_grid_layout.addWidget(self.pestana)
-        self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
-            ntaps, #size
-            samp_rate, #samp_rate
-            "Wave Forming", #name
-            1 #number of inputs
+        self.Menu = Qt.QTabWidget()
+        self.Menu_widget_0 = Qt.QWidget()
+        self.Menu_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.Menu_widget_0)
+        self.Menu_grid_layout_0 = Qt.QGridLayout()
+        self.Menu_layout_0.addLayout(self.Menu_grid_layout_0)
+        self.Menu.addTab(self.Menu_widget_0, 'banary random signal')
+        self.top_grid_layout.addWidget(self.Menu, 1, 0, 1, 4)
+        for r in range(1, 2):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 4):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        _run_stop_check_box = Qt.QCheckBox('Inicial/Parar')
+        self._run_stop_choices = {True: True, False: False}
+        self._run_stop_choices_inv = dict((v,k) for k,v in self._run_stop_choices.items())
+        self._run_stop_callback = lambda i: Qt.QMetaObject.invokeMethod(_run_stop_check_box, "setChecked", Qt.Q_ARG("bool", self._run_stop_choices_inv[i]))
+        self._run_stop_callback(self.run_stop)
+        _run_stop_check_box.stateChanged.connect(lambda i: self.set_run_stop(self._run_stop_choices[bool(i)]))
+        self.top_grid_layout.addWidget(_run_stop_check_box, 0, 0, 1, 1)
+        for r in range(0, 1):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        self.qtgui_vector_sink_f_0_1 = qtgui.vector_sink_f(
+            N,
+            -samp_rate/2,
+            (samp_rate-1)/N,
+            "Frecuencia",
+            "Amplitud (Watt/Hz)",
+            'PSD',
+            1, # Number of inputs
+            None # parent
         )
-        self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-3, 3)
+        self.qtgui_vector_sink_f_0_1.set_update_time(0.10)
+        self.qtgui_vector_sink_f_0_1.set_y_axis(0., 1/Rb)
+        self.qtgui_vector_sink_f_0_1.enable_autoscale(False)
+        self.qtgui_vector_sink_f_0_1.enable_grid(False)
+        self.qtgui_vector_sink_f_0_1.set_x_axis_units("Hz")
+        self.qtgui_vector_sink_f_0_1.set_y_axis_units("Watt/Hz")
+        self.qtgui_vector_sink_f_0_1.set_ref_level(0)
 
-        self.qtgui_time_sink_x_0_0_0_0_0.set_y_label('RC Filter', "")
-
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_control_panel(True)
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_stem_plot(False)
-
-
-        labels = ['Senal0', 'Senal1', 'RC, rollof=0.5', 'RC, rollof=0.35', 'RRC, rollof=0',
+        labels = ['.', '', '', '', '',
             '', '', '', '', '']
-        widths = [3, 3, 3, 3, 1,
+        widths = [4, 1, 1, 1, 1,
             1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
+        colors = ["blue", "red", "green", "black", "cyan",
+            "magenta", "yellow", "dark red", "dark green", "dark blue"]
         alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
             1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0_0_0_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_vector_sink_f_0_1.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_sink_x_0_0_0_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0_0_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0_0_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0_0_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0_0_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0_0_0_0.set_line_alpha(i, alphas[i])
+                self.qtgui_vector_sink_f_0_1.set_line_label(i, labels[i])
+            self.qtgui_vector_sink_f_0_1.set_line_width(i, widths[i])
+            self.qtgui_vector_sink_f_0_1.set_line_color(i, colors[i])
+            self.qtgui_vector_sink_f_0_1.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0.pyqwidget(), Qt.QWidget)
-        self.pestana_layout_0.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win)
-        self.low_pass_filter_0_0 = filter.fir_filter_fff(
-            1,
-            firdes.low_pass(
-                1,
-                samp_rate,
-                (Rb/2)*(1+rolloff2),
-                (Rb/2)*(1+rolloff2)/8,
-                firdes.WIN_HAMMING,
-                6.76))
-        self.interp_fir_filter_xxx_0_0_0_0_0_0 = filter.interp_fir_filter_fff(Sps, wform.rcos(Sps,ntaps,rolloff1))
-        self.interp_fir_filter_xxx_0_0_0_0_0_0.declare_sample_delay(0)
-        self.blocks_stream_to_vector_0_0 = blocks.stream_to_vector(gr.sizeof_float*1, Sps*256)
-        self.blocks_multiply_const_vxx_0_0 = blocks.multiply_const_ff(1/1.5)
-        self.blocks_int_to_float_0 = blocks.int_to_float(1, 1)
-        self.blocks_delay_0 = blocks.delay(gr.sizeof_float*1, int(Sps/2))
-        self.blocks_add_xx_0_0 = blocks.add_vff(1)
-        self.analog_random_source_x_0 = blocks.vector_source_i(list(map(int, numpy.random.randint(0, 2, 1000000))), True)
-        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, 0.15, 0)
-        self.E3TRadio_vec_diagrama_ojo_f_0 = E3TRadio.vec_diagrama_ojo_f(Sps, samp_rate, Sps*256)
+        self._qtgui_vector_sink_f_0_1_win = sip.wrapinstance(self.qtgui_vector_sink_f_0_1.pyqwidget(), Qt.QWidget)
+        self.Menu_grid_layout_0.addWidget(self._qtgui_vector_sink_f_0_1_win, 2, 0, 1, 1)
+        for r in range(2, 3):
+            self.Menu_grid_layout_0.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.Menu_grid_layout_0.setColumnStretch(c, 1)
+        self.qtgui_vector_sink_f_0 = qtgui.vector_sink_f(
+            N,
+            -(N/2)/samp_rate,
+            (N/2)/samp_rate,
+            "Rx(T)",
+            "Amplitud",
+            'Autocorrelacin',
+            1, # Number of inputs
+            None # parent
+        )
+        self.qtgui_vector_sink_f_0.set_update_time(0.10)
+        self.qtgui_vector_sink_f_0.set_y_axis(-1, 2)
+        self.qtgui_vector_sink_f_0.enable_autoscale(False)
+        self.qtgui_vector_sink_f_0.enable_grid(False)
+        self.qtgui_vector_sink_f_0.set_x_axis_units("T")
+        self.qtgui_vector_sink_f_0.set_y_axis_units("Watt/Hz")
+        self.qtgui_vector_sink_f_0.set_ref_level(0)
+
+        labels = ['.', '', '', '', '',
+            '', '', '', '', '']
+        widths = [4, 1, 1, 1, 1,
+            1, 1, 1, 1, 1]
+        colors = ["blue", "red", "green", "black", "cyan",
+            "magenta", "yellow", "dark red", "dark green", "dark blue"]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_vector_sink_f_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_vector_sink_f_0.set_line_label(i, labels[i])
+            self.qtgui_vector_sink_f_0.set_line_width(i, widths[i])
+            self.qtgui_vector_sink_f_0.set_line_color(i, colors[i])
+            self.qtgui_vector_sink_f_0.set_line_alpha(i, alphas[i])
+
+        self._qtgui_vector_sink_f_0_win = sip.wrapinstance(self.qtgui_vector_sink_f_0.pyqwidget(), Qt.QWidget)
+        self.Menu_grid_layout_0.addWidget(self._qtgui_vector_sink_f_0_win, 1, 0, 1, 1)
+        for r in range(1, 2):
+            self.Menu_grid_layout_0.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.Menu_grid_layout_0.setColumnStretch(c, 1)
+        self.interp_fir_filter_xxx_0 = filter.interp_fir_filter_fff(Sps, h)
+        self.interp_fir_filter_xxx_0.declare_sample_delay(0)
+        self.fft_vxx_1 = fft.fft_vfc(N, True, window.rectangular(N), True, 1)
+        self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_float*1, N)
+        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vff(N*[1/samp_rate,])
+        self.blocks_complex_to_mag_0 = blocks.complex_to_mag(N)
+        self.b_binary_bipolar_source1_f_0 = b_binary_bipolar_source1_f(
+            Am=1.,
+        )
+        _Mean_reset_push_button = Qt.QPushButton('Push here to restart averaging procces')
+        _Mean_reset_push_button = Qt.QPushButton('Push here to restart averaging procces')
+        self._Mean_reset_choices = {'Pressed': 0, 'Released': 1}
+        _Mean_reset_push_button.pressed.connect(lambda: self.set_Mean_reset(self._Mean_reset_choices['Pressed']))
+        _Mean_reset_push_button.released.connect(lambda: self.set_Mean_reset(self._Mean_reset_choices['Released']))
+        self.top_grid_layout.addWidget(_Mean_reset_push_button, 0, 3, 1, 1)
+        for r in range(0, 1):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(3, 4):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        self.E3TRadio_vector_average_hob_0 = E3TRadio.vector_average_hob(N, Ensayos)
+        self.E3TRadio_v_autocorr_ff_0 = E3TRadio.v_autocorr_ff(N)
 
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_noise_source_x_0, 0), (self.low_pass_filter_0_0, 0))
-        self.connect((self.analog_random_source_x_0, 0), (self.blocks_int_to_float_0, 0))
-        self.connect((self.blocks_add_xx_0_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
-        self.connect((self.blocks_delay_0, 0), (self.blocks_stream_to_vector_0_0, 0))
-        self.connect((self.blocks_int_to_float_0, 0), (self.interp_fir_filter_xxx_0_0_0_0_0_0, 0))
-        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.blocks_delay_0, 0))
-        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
-        self.connect((self.blocks_stream_to_vector_0_0, 0), (self.E3TRadio_vec_diagrama_ojo_f_0, 0))
-        self.connect((self.interp_fir_filter_xxx_0_0_0_0_0_0, 0), (self.blocks_add_xx_0_0, 0))
-        self.connect((self.low_pass_filter_0_0, 0), (self.blocks_add_xx_0_0, 1))
+        self.connect((self.E3TRadio_v_autocorr_ff_0, 0), (self.E3TRadio_vector_average_hob_0, 0))
+        self.connect((self.E3TRadio_vector_average_hob_0, 0), (self.fft_vxx_1, 0))
+        self.connect((self.E3TRadio_vector_average_hob_0, 0), (self.qtgui_vector_sink_f_0, 0))
+        self.connect((self.b_binary_bipolar_source1_f_0, 0), (self.interp_fir_filter_xxx_0, 0))
+        self.connect((self.blocks_complex_to_mag_0, 0), (self.blocks_multiply_const_vxx_0, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.qtgui_vector_sink_f_0_1, 0))
+        self.connect((self.blocks_stream_to_vector_0, 0), (self.E3TRadio_v_autocorr_ff_0, 0))
+        self.connect((self.fft_vxx_1, 0), (self.blocks_complex_to_mag_0, 0))
+        self.connect((self.interp_fir_filter_xxx_0, 0), (self.blocks_stream_to_vector_0, 0))
+
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
         self.settings.setValue("geometry", self.saveGeometry())
+        self.stop()
+        self.wait()
+
         event.accept()
-
-    def get_Sps(self):
-        return self.Sps
-
-    def set_Sps(self, Sps):
-        self.Sps = Sps
-        self.set_samp_rate(self.Rb*self.Sps)
-        self.blocks_delay_0.set_dly(int(self.Sps/2))
-        self.interp_fir_filter_xxx_0_0_0_0_0_0.set_taps(wform.rcos(self.Sps,self.ntaps,self.rolloff1))
-
-    def get_Rb(self):
-        return self.Rb
-
-    def set_Rb(self, Rb):
-        self.Rb = Rb
-        self.set_samp_rate(self.Rb*self.Sps)
-        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, (self.Rb/2)*(1+self.rolloff2), (self.Rb/2)*(1+self.rolloff2)/8, firdes.WIN_HAMMING, 6.76))
 
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, (self.Rb/2)*(1+self.rolloff2), (self.Rb/2)*(1+self.rolloff2)/8, firdes.WIN_HAMMING, 6.76))
-        self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
+        self.set_Rb(self.samp_rate/self.Sps)
+        self.blocks_multiply_const_vxx_0.set_k(self.N*[1/self.samp_rate,])
+        self.qtgui_vector_sink_f_0.set_x_axis(-(self.N/2)/self.samp_rate, (self.N/2)/self.samp_rate)
+        self.qtgui_vector_sink_f_0_1.set_x_axis(-self.samp_rate/2, (self.samp_rate-1)/self.N)
 
-    def get_rolloff4(self):
-        return self.rolloff4
+    def get_Sps(self):
+        return self.Sps
 
-    def set_rolloff4(self, rolloff4):
-        self.rolloff4 = rolloff4
+    def set_Sps(self, Sps):
+        self.Sps = Sps
+        self.set_N(16*self.Sps)
+        self.set_Rb(self.samp_rate/self.Sps)
+        self.set_h(wform.rect(self.Sps))
 
-    def get_rolloff3(self):
-        return self.rolloff3
+    def get_run_stop(self):
+        return self.run_stop
 
-    def set_rolloff3(self, rolloff3):
-        self.rolloff3 = rolloff3
+    def set_run_stop(self, run_stop):
+        self.run_stop = run_stop
+        if self.run_stop: self.start()
+        else: self.stop(); self.wait()
+        self._run_stop_callback(self.run_stop)
 
-    def get_rolloff2(self):
-        return self.rolloff2
+    def get_h(self):
+        return self.h
 
-    def set_rolloff2(self, rolloff2):
-        self.rolloff2 = rolloff2
-        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, (self.Rb/2)*(1+self.rolloff2), (self.Rb/2)*(1+self.rolloff2)/8, firdes.WIN_HAMMING, 6.76))
+    def set_h(self, h):
+        self.h = h
+        self.interp_fir_filter_xxx_0.set_taps(self.h)
 
-    def get_rolloff1(self):
-        return self.rolloff1
+    def get_Rb(self):
+        return self.Rb
 
-    def set_rolloff1(self, rolloff1):
-        self.rolloff1 = rolloff1
-        self.interp_fir_filter_xxx_0_0_0_0_0_0.set_taps(wform.rcos(self.Sps,self.ntaps,self.rolloff1))
+    def set_Rb(self, Rb):
+        self.Rb = Rb
+        self.qtgui_vector_sink_f_0_1.set_y_axis(0., 1/self.Rb)
 
-    def get_ntaps(self):
-        return self.ntaps
+    def get_N(self):
+        return self.N
 
-    def set_ntaps(self, ntaps):
-        self.ntaps = ntaps
-        self.interp_fir_filter_xxx_0_0_0_0_0_0.set_taps(wform.rcos(self.Sps,self.ntaps,self.rolloff1))
+    def set_N(self, N):
+        self.N = N
+        self.blocks_multiply_const_vxx_0.set_k(self.N*[1/self.samp_rate,])
+        self.qtgui_vector_sink_f_0.set_x_axis(-(self.N/2)/self.samp_rate, (self.N/2)/self.samp_rate)
+        self.qtgui_vector_sink_f_0_1.set_x_axis(-self.samp_rate/2, (self.samp_rate-1)/self.N)
+
+    def get_Mean_reset(self):
+        return self.Mean_reset
+
+    def set_Mean_reset(self, Mean_reset):
+        self.Mean_reset = Mean_reset
+
+    def get_Ensayos(self):
+        return self.Ensayos
+
+    def set_Ensayos(self, Ensayos):
+        self.Ensayos = Ensayos
+
 
 
 
@@ -259,10 +320,15 @@ def main(top_block_cls=top_block, options=None):
     qapp = Qt.QApplication(sys.argv)
 
     tb = top_block_cls()
+
     tb.start()
+
     tb.show()
 
     def sig_handler(sig=None, frame=None):
+        tb.stop()
+        tb.wait()
+
         Qt.QApplication.quit()
 
     signal.signal(signal.SIGINT, sig_handler)
@@ -272,12 +338,7 @@ def main(top_block_cls=top_block, options=None):
     timer.start(500)
     timer.timeout.connect(lambda: None)
 
-    def quitting():
-        tb.stop()
-        tb.wait()
-    qapp.aboutToQuit.connect(quitting)
     qapp.exec_()
-
 
 if __name__ == '__main__':
     main()

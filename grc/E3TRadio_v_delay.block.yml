@@ -1,7 +1,7 @@
 
 id: E3TRadio_v_delay
 label: v_delay
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

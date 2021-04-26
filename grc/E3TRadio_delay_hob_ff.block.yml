@@ -1,7 +1,7 @@
 
 id: E3TRadio_delay_hob_ff
 label: delay_hob
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: NN

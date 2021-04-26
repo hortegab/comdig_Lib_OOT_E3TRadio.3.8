@@ -1,7 +1,7 @@
 
 id: E3TRadio_usrp2usrp1_cc
 label: usrp2usrp1_cc
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: Katt

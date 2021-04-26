@@ -1,7 +1,7 @@
 
 id: E3TRadio_e_canal_BER
 label: e_canal_BER
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

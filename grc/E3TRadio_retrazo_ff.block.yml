@@ -1,7 +1,7 @@
 
 id: E3TRadio_retrazo_ff
 label: retrazo_ff
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: Rmax

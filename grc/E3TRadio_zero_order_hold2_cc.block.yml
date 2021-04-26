@@ -1,7 +1,7 @@
 
 id: E3TRadio_zero_order_hold2_cc
 label: zeroh2_cc
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: k

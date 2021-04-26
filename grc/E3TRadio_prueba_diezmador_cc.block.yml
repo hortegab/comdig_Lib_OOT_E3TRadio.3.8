@@ -1,6 +1,6 @@
 id: E3TRadio_prueba_diezmador_cc
 label: diezmador_cc
-category: '[E3TRadio_prueba]'
+category: '[borrar]'
 
 templates:
   imports: import E3TRadio_prueba

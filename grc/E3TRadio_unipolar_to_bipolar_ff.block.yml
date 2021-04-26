@@ -1,7 +1,7 @@
 
 id: E3TRadio_unipolar_to_bipolar_ff
 label: unipolar_to_bipolar_ff
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: Amp

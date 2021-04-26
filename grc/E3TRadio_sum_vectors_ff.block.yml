@@ -1,7 +1,7 @@
 
 id: E3TRadio_sum_vectors_ff
 label: sum_vectors_ff
-category: E3TRadio
+category: '[E3TRadio]'
 
 inputs:
 -   label: in1

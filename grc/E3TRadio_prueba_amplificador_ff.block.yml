@@ -1,6 +1,6 @@
 id: E3TRadio_prueba_amplificador_ff
 label: amplificador_ff
-category: '[E3TRadio_prueba]'
+category: '[borrar]'
 
 templates:
   imports: import E3TRadio_prueba

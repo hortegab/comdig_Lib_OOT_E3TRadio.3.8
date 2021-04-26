@@ -1,7 +1,7 @@
 
 id: E3TRadio_time_averager_jesus
 label: time_averager_jesus
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

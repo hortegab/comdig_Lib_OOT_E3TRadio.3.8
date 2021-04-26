@@ -1,7 +1,7 @@
 
 id: E3TRadio_vector_average_hob
 label: vector_average_hob
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: N

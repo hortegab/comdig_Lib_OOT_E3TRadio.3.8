@@ -1,7 +1,7 @@
 
 id: E3TRadio_diezmador_cc
 label: diezmador_cc
-category: E3TRadio
+category: '[E3TRadio]'
 
 parameters:
 -   id: paso

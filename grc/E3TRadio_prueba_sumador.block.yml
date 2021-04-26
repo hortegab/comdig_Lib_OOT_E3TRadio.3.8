@@ -1,6 +1,6 @@
 id: E3TRadio_prueba_sumador
 label: sumador
-category: '[E3TRadio_prueba]'
+category: '[borrar]'
 
 templates:
   imports: import E3TRadio_prueba
