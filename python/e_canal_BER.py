@@ -92,7 +92,7 @@ PARA CORREGIR: este bloque no debria llamarse e_canal_BER sino canal_BER_cc
         ###############################################################
         for i in range(0,L): 
             output_items[0][i] = input_items[0][i]+noise_c(self.EsN0dB[self.k], Pin,Rs,B1)
-            output_items[1][i] = self.k
+            output_items[1][i] = self.k # Aqui hay error, debe devolver no k sino el EsNodB aplicado
             if self.k < self.N-1:
                 self.k += 1
             else:

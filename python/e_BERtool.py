@@ -76,18 +76,19 @@ PARA CORREGIR: Este bloque no deberia llamarme e_BERtool, sino BERtool_if
 
     def work(self, input_items, output_items):
         in0=input_items[1] 
-        in1=input_items[2]
+        in1=input_items[2] 
         
         # L: es el tamano del vector de entrada. 
         L=len(in0) 
         
         # Barrido de los datos recibidos
-		# i es el punto actual de los datos entrantes
-		# k es el punto actual de la SER
-		# count es el numero de muestras procesadas		
-#        print('count=',self.count)
+        # i es el punto actual de los datos entrantes
+        # k es el punto actual de la SER
+        # count es el numero de muestras procesadas		
+        # print('count=',self.count)
+        # La idea es que cada muestra de la BER necesita un contador, osea tendremos N contadores
         for i in range(0,L):
-            k=input_items[0][i]
+            k=input_items[0][i] #En realidad no es necesario obtenerlo a partir de una senal porque es predecible
 
             #self.count[k] += np.sign(k)^1
 
