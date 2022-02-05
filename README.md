@@ -15,10 +15,15 @@ Todo lo siguiente se instala en forma de comandos por terminal ubuntu.
 
 ## Ahora sí a instalar dependencias
 $ sudo apt-get update
+
 $ sudo apt-get upgrade
+
 $ sudo apt install --fix-broken xterm python3-pip python3-click-plugins
+
 $ pip3 install numpy scipy mako sphinx lxml pyqt5 click zmq markdown cython matplotlib pyyaml
+
 $ pip3 install git+https://github.com/pyqtgraph/pyqtgraph@master
+
 $ pip3 install git+https://github.com/hortegab/comdig_DiagramaOjo.3.8
 
 # LA INSTALACION DEL OOT E3TRADIO
@@ -27,8 +32,11 @@ $ pip3 install git+https://github.com/hortegab/comdig_DiagramaOjo.3.8
 - Envía por el terminal los siguientes comandos:
 
 $ sudo cmake ..
+
 $ sudo make
+
 $ sudo make install
+
 $ sudo ldconfig
 
 # CORRECCION DE PATH (solo para usuarios de maquinas de Carlos Mario en Google Cloud)
