@@ -43,7 +43,7 @@ PARA CORREGIR: Una revision en 2020 determino qu el codigo de este bloque no est
         out = output_items[0]
 #        print("Lo ",len(out))
 #        print("Li ",len(in0))
-        # <+signal processing here+>
+# <+signal processing here+>
 #        out=numpy.zeros(len(in0))
 #        j=0
 #        for i in range(0,len(in0)):
@@ -59,3 +59,4 @@ PARA CORREGIR: Una revision en 2020 determino qu el codigo de este bloque no est
 # La siguiente funcion sirve para cambiar en caliente el valor M
     def set_ka(self, M):
         self.M=M
+

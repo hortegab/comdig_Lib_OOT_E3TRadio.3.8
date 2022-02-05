@@ -42,7 +42,7 @@ outputs:
   domain: stream
   dtype: float
   vlen: ${ N }
-S
+
 #######################################################################################
 ## Lo de abajo no debe ser modificado, se refiere a la version de yml sobre la cual  ##
 ## hemos trabajado. Gracias a ello, cuando surjan varias otras versiones, el sistema ##
